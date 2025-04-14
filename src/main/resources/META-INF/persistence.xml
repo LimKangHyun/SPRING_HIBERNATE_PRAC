@@ -25,5 +25,14 @@
         </properties>
     </persistence-unit>
 
-
+    <persistence-unit name="hibernate-h2">
+        <class>domain.eg1.Member</class>
+        <properties>
+            <!--접속 정보-->
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./hibernate_prac"/>
+            <property name="jakarta.persistence.jdbc.user" value="sa"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+        </properties>
+    </persistence-unit>
 </persistence>
