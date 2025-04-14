@@ -64,6 +64,8 @@ public class EntityManagerTest {
         executeCommit(entityManager, () -> {
             Member member = genMember(genMemberName());
             entityManager.persist(member);
+
+            return null;
         });
 
     }
@@ -76,5 +78,50 @@ public class EntityManagerTest {
 
     private static String genMemberName() {
         return "member" + genNumStr();
+    }
+
+    @Test
+    @DisplayName("select test")
+    void select_test() throws Exception {
+
+        Member member = genMember(genMemberName());
+
+        executeCommit(entityManager, () -> {
+            entityManager.persist(member);
+            // 위에서 생성한 member의 Id와 동일한 행 가져오기
+            Member findMember = entityManager.find(Member.class, member.getId());
+
+            assertThat(findMember).isEqualTo(member);
+
+            log.info("Member: {}", member);
+            log.info("findMember: {}", findMember);
+
+            return null;
+        });
+
+        Member entityMember = executeCommit(entityManager, () -> {
+            Member findMember = entityManager.find(Member.class, member.getId());
+            assertThat(findMember.getId()).isEqualTo(member.getId());
+
+            findMember.setName("ADMIN");
+            return findMember;
+        });
+
+        executeCommit(entityManager, () -> {
+
+            entityManager.detach(entityMember);
+            entityMember.setName("MEMBER");
+            return null;
+        });
+
+        executeCommit(entityManager, () -> {
+            // 준영속상태에 있던 엔티티를 다시 영속 상태로 만든것
+            Member mergedMember = entityManager.merge(member);
+
+            assertThat(mergedMember.getId()).isEqualTo(member.getId());
+            assertThat(mergedMember.getName()).isEqualTo("MEMBER");
+
+            return null;
+        });
     }
 }
