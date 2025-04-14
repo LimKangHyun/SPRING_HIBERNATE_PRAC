@@ -8,6 +8,8 @@
         <class>domain.eg1.Member</class>
         <class>domain.eg2._1.Post</class>
         <class>domain.eg2._2.Product</class>
+        <class>domain.eg2._3.GymMemberShip</class>
+        <class>domain.eg2._3.Account</class>
         <properties>
             <!--접속 정보-->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
