@@ -124,4 +124,22 @@ public class EntityManagerTest {
             return null;
         });
     }
+    @Test
+    @DisplayName("write-behind test")
+    void write_behind_test() throws Exception {
+
+        // 트랜잭션이 커밋되기 전까지 DB에 반영되지 않음
+        // 트랜잭션의 일관성 유지
+        executeCommit(entityManager, () -> {
+            Member member1 = genMember(genMemberName());
+            Member member2 = genMember(genMemberName());
+
+            entityManager.persist(member1);
+            entityManager.persist(member2);
+
+            log.info("아직 쿼리가 실행되지 않음");
+            return null;
+        });
+    
+    }
 }
