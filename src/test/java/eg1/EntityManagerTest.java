@@ -1,15 +1,18 @@
 package eg1;
 
+import domain.eg1.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
+import util.TestUtil;
 
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
+import static util.TestUtil.*;
 
 @Slf4j
 public class EntityManagerTest {
@@ -52,5 +55,26 @@ public class EntityManagerTest {
 
         assertThat(url).isEqualTo("jdbc:mysql://localhost:3306/hibernate_prac");
         assertThat(driver).isEqualTo("com.mysql.cj.jdbc.Driver");
+    }
+
+    @Test
+    @DisplayName("save test")
+    void save_test() throws Exception {
+
+        executeCommit(entityManager, () -> {
+            Member member = genMember(genMemberName());
+            entityManager.persist(member);
+        });
+
+    }
+    private Member genMember(String memberName) {
+        return Member.builder()
+                .id(memberName)
+                .name(memberName)
+                .build();
+    }
+
+    private static String genMemberName() {
+        return "member" + genNumStr();
     }
 }
