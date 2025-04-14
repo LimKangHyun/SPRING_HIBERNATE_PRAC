@@ -9,7 +9,7 @@
         <properties>
             <!--접속 정보-->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="jakrata.prersistence.jdbc.url" value="jdbc:mysql://localhost:3306/hibernate_prac"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hibernate_prac"/>
             <property name="jakarta.persistence.jdbc.user" value="test"/>
             <property name="jakarta.persistence.jdbc.password" value="lkh0218"/>
 
