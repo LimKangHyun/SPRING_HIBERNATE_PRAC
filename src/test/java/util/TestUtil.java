@@ -14,18 +14,18 @@ public class TestUtil {
 
     public static void executeCommit(EntityManager entityManager, Runnable action) {
         EntityTransaction transaction = entityManager.getTransaction();
-
+        // 트랜잭션 시작
+        transaction.begin();
         try {
-            // 트랜잭션 시작
-            transaction.begin();
+
             // 비즈니스 로직 실행
             action.run();
-            transaction.commit();
         } catch (Exception e) {
-            // 트랜잭션이 활성상태인경우인지 확인 후 롤백, 비활상태라면 롤백하면 예외 터지고 의미 없는 동작이므로 예외 처리
-            if (transaction.isActive()) transaction.rollback();
+            transaction.rollback();
             log.error(e.getMessage(), e);
             e.printStackTrace();
+        } finally {
+            transaction.commit();
         }
     }
 }
