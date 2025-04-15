@@ -12,6 +12,8 @@
         <class>domain.eg2._3.Account</class>
         <class>domain.eg3._1.Player</class>
         <class>domain.eg3._1.Team</class>
+        <class>domain.eg3._2.Locker</class>
+        <class>domain.eg3._2.LockerOwner</class>
         <properties>
             <!--접속 정보-->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
