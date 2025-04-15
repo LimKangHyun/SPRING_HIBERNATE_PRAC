@@ -64,8 +64,6 @@ public class EntityManagerTest {
         executeCommit(entityManager, () -> {
             Member member = genMember(genMemberName());
             entityManager.persist(member);
-
-            return null;
         });
 
     }
@@ -95,23 +93,19 @@ public class EntityManagerTest {
 
             log.info("Member: {}", member);
             log.info("findMember: {}", findMember);
-
-            return null;
         });
 
-        Member entityMember = executeCommit(entityManager, () -> {
+        executeCommit(entityManager, () -> {
             Member findMember = entityManager.find(Member.class, member.getId());
             assertThat(findMember.getId()).isEqualTo(member.getId());
 
             findMember.setName("ADMIN");
-            return findMember;
         });
 
         executeCommit(entityManager, () -> {
 
-            entityManager.detach(entityMember);
-            entityMember.setName("MEMBER");
-            return null;
+            entityManager.detach(member);
+            member.setName("MEMBER");
         });
 
         executeCommit(entityManager, () -> {
@@ -120,8 +114,6 @@ public class EntityManagerTest {
 
             assertThat(mergedMember.getId()).isEqualTo(member.getId());
             assertThat(mergedMember.getName()).isEqualTo("MEMBER");
-
-            return null;
         });
     }
     @Test
@@ -138,7 +130,6 @@ public class EntityManagerTest {
             entityManager.persist(member2);
 
             log.info("아직 쿼리가 실행되지 않음");
-            return null;
         });
     
     }

@@ -57,7 +57,6 @@ public class EntityObjTest {
             entityManager.persist(memberShip1);
             entityManager.persist(memberShip2);
             entityManager.persist(memberShip3);
-            return null;
         });
     }
 }
